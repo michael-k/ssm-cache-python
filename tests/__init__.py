@@ -5,6 +5,7 @@ import sys
 import logging
 import boto3
 import botocore
+from moto import mock_ssm, mock_secretsmanager
 
 # directly from here: https://github.com/boto/boto3/issues/521
 logging.getLogger('boto3').setLevel(logging.CRITICAL)
@@ -15,6 +16,8 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 
 from ssm_cache import SSMParameter, SSMParameterGroup
 
+@mock_ssm
+@mock_secretsmanager
 class TestBase(unittest.TestCase):
     """ Base class with mock values and boto3 client """
 
